@@ -150,12 +150,12 @@ const EmployeeProvider: React.FC<{ children: React.ReactNode }> = ({ children })
 		setEmployees([...employees, employee]);
 	};
 	const updateEmployee = (code: number, data: UpdatedEmployee) => {
-		setEmployees(
-			employees.map((e) => {
+		setEmployees((prev) =>
+			prev.map((e) => {
 				if (e.code === code) {
 					return {
 						...e,
-						data,
+						...data,
 					};
 				}
 				return e;

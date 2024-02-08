@@ -52,16 +52,22 @@ export function CardWithForm({ employee }: Props) {
 
 	const onSubmitHandler: React.FormEventHandler = (e) => {
 		e.preventDefault();
-		if (!data.code || !data.name || data.name.length < 1) return;
-		if (editMode) {
-			const { code, ...rest } = data;
-			updateEmployee(code, rest);
-		} else {
-			const notValidEmployerCode = employees.some((e) => e.code === data.code) || data.code < 0;
-			if (notValidEmployerCode) return;
-			saveEmployee(data);
+		try {
+			if (!data.code || !data.name || data.name.length < 1) return;
+			if (editMode) {
+				const { code, ...rest } = data;
+				updateEmployee(code, rest);
+			} else {
+				const notValidEmployerCode = employees.some((e) => e.code === data.code) || data.code < 0;
+				if (notValidEmployerCode) return;
+				saveEmployee(data);
+			}
+		} catch (error) {
+			console.log("🚀 ~ CardWithForm ~ error:", error);
+		} finally {
+			setData(() => defaultVales);
+			setEditMode(false);
 		}
-		setData((prev) => defaultVales);
 	};
 
 	return (
@@ -70,7 +76,7 @@ export function CardWithForm({ employee }: Props) {
 				<CardTitle className="capitalize">employee files Entry</CardTitle>
 				<CardDescription>
 					<div className="flex items-center justify-between">
-						<p>Deploy your new Employee Data.</p>
+						<div>Deploy your new Employee Data.</div>
 						<EmployeeCodeSearch editEmployee={onEditEmployee} />
 					</div>
 				</CardDescription>
@@ -88,6 +94,7 @@ export function CardWithForm({ employee }: Props) {
 									onChange={(e) => setData((prev) => ({ ...prev, code: +e.target.value }))}
 									type="number"
 									required
+									disabled={editMode}
 								/>
 								<CommandShortcut>⌘F8</CommandShortcut>
 							</div>

@@ -60,13 +60,13 @@ function EmployeeCodeSearch({ editEmployee }: Props) {
 					</div>
 				</form>
 				<ul>
-					{list.length < 1 && <p className="text-center">No Results.</p>}
+					{list.length < 1 && <div className="text-center">No Results.</div>}
 					<Separator className="my-4" />
 					{list.map((e) => (
 						<li key={e.code}>
 							<div className="grid grid-cols-[1fr_4fr_auto] px-4 items-center">
-								<p>{e.code}</p>
-								<p>{e.name}</p>
+								<div>{e.code}</div>
+								<div>{e.name}</div>
 								<div className="flex items-center justify-between gap-x-3">
 									<DialogClose
 										className="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors rounded-md bg-primary text-primary-foreground hover:bg-primary/90 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
