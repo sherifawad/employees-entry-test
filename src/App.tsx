@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { CardWithForm } from "./components/form";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "src/components/ui/tabs";
+import EmployeeProvider from "./context/employeeContext";
+import FilteredList from "./components/filteredList";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<EmployeeProvider>
+			<Tabs defaultValue="list" className="flex flex-col w-full px-4 py-12 mx-auto">
+				<TabsList className="w-[400px] self-center  mb-12">
+					<TabsTrigger value="new" className="w-full capitalize">
+						employee files Entry
+					</TabsTrigger>
+					<TabsTrigger value="list" className="w-full capitalize">
+						employee files Query
+					</TabsTrigger>
+				</TabsList>
+				<TabsContent value="new">
+					<CardWithForm />
+				</TabsContent>
+				<TabsContent value="list">
+					<FilteredList />
+				</TabsContent>
+			</Tabs>
+		</EmployeeProvider>
+	);
 }
 
 export default App;
